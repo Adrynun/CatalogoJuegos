@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JuegoForm));
             pictureBoxImagen = new PictureBox();
             labelTitulo = new Label();
-            labelDescripcion = new Label();
             labelPrecio = new Label();
             buttonCompra = new Button();
             buttonVolver = new Button();
             panelDescripcion = new Panel();
-            labelTituloFormulario = new Label();
+            buttonGestionar = new Button();
+            labelDescripcion = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxImagen).BeginInit();
             panelDescripcion.SuspendLayout();
             SuspendLayout();
@@ -54,21 +54,20 @@
             // 
             // labelTitulo
             // 
+            labelTitulo.BackColor = Color.Transparent;
+            labelTitulo.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelTitulo.ForeColor = Color.Azure;
             labelTitulo.Location = new Point(220, 40);
             labelTitulo.Name = "labelTitulo";
             labelTitulo.Size = new Size(200, 30);
             labelTitulo.TabIndex = 10;
             labelTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // labelDescripcion
-            // 
-            labelDescripcion.Location = new Point(0, 0);
-            labelDescripcion.Name = "labelDescripcion";
-            labelDescripcion.Size = new Size(200, 100);
-            labelDescripcion.TabIndex = 11;
-            // 
             // labelPrecio
             // 
+            labelPrecio.BackColor = Color.Transparent;
+            labelPrecio.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelPrecio.ForeColor = Color.Azure;
             labelPrecio.Location = new Point(220, 80);
             labelPrecio.Name = "labelPrecio";
             labelPrecio.Size = new Size(200, 30);
@@ -77,43 +76,68 @@
             // 
             // buttonCompra
             // 
+            buttonCompra.BackColor = Color.Transparent;
+            buttonCompra.FlatStyle = FlatStyle.Flat;
+            buttonCompra.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            buttonCompra.ForeColor = Color.Azure;
             buttonCompra.Location = new Point(12, 350);
             buttonCompra.Name = "buttonCompra";
             buttonCompra.Size = new Size(94, 29);
             buttonCompra.TabIndex = 13;
             buttonCompra.Text = "Comprar";
-            buttonCompra.UseVisualStyleBackColor = true;
+            buttonCompra.UseVisualStyleBackColor = false;
+            buttonCompra.Visible = false;
             buttonCompra.Click += buttonCompra_Click;
             // 
             // buttonVolver
             // 
+            buttonVolver.BackColor = Color.Transparent;
+            buttonVolver.FlatStyle = FlatStyle.Flat;
+            buttonVolver.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            buttonVolver.ForeColor = Color.Azure;
             buttonVolver.Location = new Point(326, 350);
             buttonVolver.Name = "buttonVolver";
             buttonVolver.Size = new Size(94, 29);
             buttonVolver.TabIndex = 14;
             buttonVolver.Text = "Volver";
-            buttonVolver.UseVisualStyleBackColor = true;
+            buttonVolver.UseVisualStyleBackColor = false;
             buttonVolver.Click += buttonVolver_Click;
             // 
             // panelDescripcion
             // 
             panelDescripcion.AutoScroll = true;
+            panelDescripcion.BackColor = Color.Transparent;
             panelDescripcion.Controls.Add(labelDescripcion);
             panelDescripcion.Location = new Point(220, 120);
             panelDescripcion.Name = "panelDescripcion";
             panelDescripcion.Size = new Size(200, 100);
             panelDescripcion.TabIndex = 15;
             // 
-            // labelTituloFormulario
+            // buttonGestionar
             // 
-            labelTituloFormulario.Dock = DockStyle.Top;
-            labelTituloFormulario.Font = new Font("Arial", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTituloFormulario.Location = new Point(0, 0);
-            labelTituloFormulario.Name = "labelTituloFormulario";
-            labelTituloFormulario.Size = new Size(432, 37);
-            labelTituloFormulario.TabIndex = 16;
-            labelTituloFormulario.Text = "Detalles del Juego";
-            labelTituloFormulario.TextAlign = ContentAlignment.MiddleCenter;
+            buttonGestionar.BackColor = Color.Transparent;
+            buttonGestionar.FlatStyle = FlatStyle.Flat;
+            buttonGestionar.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            buttonGestionar.ForeColor = Color.Azure;
+            buttonGestionar.Location = new Point(171, 350);
+            buttonGestionar.Name = "buttonGestionar";
+            buttonGestionar.Size = new Size(94, 29);
+            buttonGestionar.TabIndex = 17;
+            buttonGestionar.Text = "Gestionar";
+            buttonGestionar.UseVisualStyleBackColor = false;
+            buttonGestionar.Visible = false;
+            buttonGestionar.Click += buttonGestionar_Click;
+            // 
+            // labelDescripcion
+            // 
+            labelDescripcion.BackColor = Color.Transparent;
+            labelDescripcion.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelDescripcion.ForeColor = Color.Azure;
+            labelDescripcion.Location = new Point(0, 0);
+            labelDescripcion.Name = "labelDescripcion";
+            labelDescripcion.Size = new Size(200, 100);
+            labelDescripcion.TabIndex = 11;
+            labelDescripcion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // JuegoForm
             // 
@@ -122,7 +146,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(432, 388);
-            Controls.Add(labelTituloFormulario);
+            Controls.Add(buttonGestionar);
             Controls.Add(panelDescripcion);
             Controls.Add(buttonVolver);
             Controls.Add(buttonCompra);
@@ -141,11 +165,11 @@
 
         private System.Windows.Forms.PictureBox pictureBoxImagen;
         private System.Windows.Forms.Label labelTitulo;
-        private System.Windows.Forms.Label labelDescripcion;
         private System.Windows.Forms.Label labelPrecio;
         private System.Windows.Forms.Button buttonCompra;
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Panel panelDescripcion;
-        private System.Windows.Forms.Label labelTituloFormulario;
+        private Button buttonGestionar;
+        private Label labelDescripcion;
     }
 }

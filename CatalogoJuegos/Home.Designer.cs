@@ -56,8 +56,6 @@ namespace CatalogoJuegos
             logo.SizeMode = PictureBoxSizeMode.StretchImage;
             logo.TabIndex = 0;
             logo.TabStop = false;
-            logo.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left;
-            logo.AutoSize = false;
             logo.Click += logo_Click;
             // 
             // lblUser
@@ -70,11 +68,10 @@ namespace CatalogoJuegos
             lblUser.Size = new Size(108, 29);
             lblUser.TabIndex = 0;
             lblUser.Text = "Usuario: ";
-            lblUser.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left;
-
             // 
             // btnCerrarSesion
             // 
+            btnCerrarSesion.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCerrarSesion.AutoSize = true;
             btnCerrarSesion.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnCerrarSesion.BackColor = Color.Red;
@@ -82,14 +79,12 @@ namespace CatalogoJuegos
             btnCerrarSesion.FlatStyle = FlatStyle.Flat;
             btnCerrarSesion.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Location = new Point(523, 15);
+            btnCerrarSesion.Location = new Point(1205, 15);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(152, 35);
             btnCerrarSesion.TabIndex = 1;
             btnCerrarSesion.Text = "Cerrar sesión";
             btnCerrarSesion.UseVisualStyleBackColor = false;
-            btnCerrarSesion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnCerrarSesion.AutoSize = true;
             btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // panelHeader
@@ -97,25 +92,22 @@ namespace CatalogoJuegos
             panelHeader.BackColor = Color.Transparent;
             panelHeader.Controls.Add(logo);
             panelHeader.Controls.Add(userPanel);
-            panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1366, 70);
             panelHeader.TabIndex = 0;
-            panelHeader.AutoSize = false;
             // 
             // userPanel
             // 
             userPanel.BackColor = Color.Transparent;
             userPanel.Controls.Add(lblUser);
             userPanel.Controls.Add(btnCerrarSesion);
-            userPanel.Location = new Point(679, 0);
+            userPanel.Dock = DockStyle.Top;
+            userPanel.Location = new Point(0, 0);
             userPanel.Name = "userPanel";
-            userPanel.Size = new Size(684, 70);
+            userPanel.Size = new Size(1366, 70);
             userPanel.TabIndex = 1;
-            userPanel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            userPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            lblUser.AutoSize = true;
             // 
             // menuStrip1
             // 
@@ -124,19 +116,17 @@ namespace CatalogoJuegos
             menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Location = new Point(0, 70);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1366, 28);
+            menuStrip1.Size = new Size(1366, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
-            menuStrip1.Dock = System.Windows.Forms.DockStyle.Top;
-            menuStrip1.AutoSize = true;
             // 
             // panelCatalogo
             // 
             panelCatalogo.BackColor = Color.Transparent;
-            panelCatalogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelCatalogo.Location = new Point(0, 98);
+            panelCatalogo.Dock = DockStyle.Fill;
+            panelCatalogo.Location = new Point(0, 94);
             panelCatalogo.Name = "panelCatalogo";
-            panelCatalogo.Size = new Size(1366, 670);
+            panelCatalogo.Size = new Size(1366, 674);
             panelCatalogo.TabIndex = 2;
             // 
             // Home

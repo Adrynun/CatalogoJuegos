@@ -7,7 +7,21 @@ namespace CatalogoJuegos
     {
         public string NombreUsuario { get; set; }
         public string RolUsuario { get; set; }
-
+        private CarritoCompraForm carritoForm;
+        public CatalogoControl CatalogoControl
+        {
+            get
+            {
+                foreach (Control control in panelCatalogo.Controls)
+                {
+                    if (control is CatalogoControl)
+                    {
+                        return (CatalogoControl)control;
+                    }
+                }
+                return null;
+            }
+        }
 
 
         public Home(string usuario, string rol)
@@ -15,10 +29,11 @@ namespace CatalogoJuegos
             InitializeComponent();
             NombreUsuario = usuario;
             RolUsuario = rol;
-
             lblUser.Text = $"Bienvenido, {NombreUsuario}";
             ConfigurarMenu();
-            
+            carritoForm = new CarritoCompraForm();
+            GlobalState.Instance.HomeInstance = this;
+
         }
 
         private void CrearCatalogoControl()
@@ -33,16 +48,79 @@ namespace CatalogoJuegos
         {
             if (RolUsuario == "administrador")
             {
-                // Opción para administrar usuarios
-                ToolStripMenuItem menuAdmin = new ToolStripMenuItem("Administrar Usuarios");
-                menuAdmin.Click += (sender, e) => MostrarVentanaAdministrarUsuarios();
-                menuStrip1.Items.Add(menuAdmin);
-
-                // Opción para gestionar el catálogo
-                ToolStripMenuItem menuGestionCatalogo = new ToolStripMenuItem("Gestionar Catálogo");
-                menuGestionCatalogo.Click += (sender, e) => MostrarGestionCatalogo();
-                menuStrip1.Items.Add(menuGestionCatalogo);
+                ConfigurarMenuAdministrador();
             }
+            else if (RolUsuario == "usuario")
+            {
+                ConfigurarMenuUsuario();
+            }
+        }
+
+        private void ConfigurarMenuAdministrador()
+        {
+            ToolStripMenuItem menuAdmin = new ToolStripMenuItem("Administrar Usuarios");
+            menuAdmin.Click += (sender, e) => MostrarVentanaAdministrarUsuarios();
+            menuStrip1.Items.Add(menuAdmin);
+
+            ToolStripMenuItem menuGestionCatalogo = new ToolStripMenuItem("Gestionar Catálogo");
+            menuGestionCatalogo.Click += (sender, e) => MostrarGestionCatalogo();
+            menuStrip1.Items.Add(menuGestionCatalogo);
+        }
+
+        private void ConfigurarMenuUsuario()
+        {
+            ToolStripMenuItem menuCarrito = new ToolStripMenuItem("Carrito");
+            menuCarrito.Click += (sender, e) => MostrarCarrito();
+            menuStrip1.Items.Add(menuCarrito);
+
+            ToolStripMenuItem menuBiblioteca = new ToolStripMenuItem("Biblioteca");
+            menuBiblioteca.Click += (sender, e) => MostrarBiblioteca();
+            menuStrip1.Items.Add(menuBiblioteca);
+        }
+        public void AgregarJuegoAlCarrito(Juego juego)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"AgregarJuegoAlCarrito: Referencia de carrito antes de agregar: {carritoForm?.GetHashCode()}");
+
+                if (carritoForm == null || carritoForm.IsDisposed)
+                {
+                    carritoForm = new CarritoCompraForm();
+                }
+                carritoForm.AgregarJuego(juego);
+
+                System.Diagnostics.Debug.WriteLine($"AgregarJuegoAlCarrito: Referencia de carrito después de agregar: {carritoForm?.GetHashCode()}");
+
+                carritoForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al agregar el juego al carrito: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MostrarCarrito()
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"MostrarCarrito: Referencia de carrito antes de mostrar: {carritoForm?.GetHashCode()}");
+                if (carritoForm == null || carritoForm.IsDisposed)
+                {
+                    carritoForm = new CarritoCompraForm();
+                }
+                carritoForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al mostrar el carrito: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void MostrarBiblioteca()
+        {
+            BibliotecaForm bibliotecaForm = new BibliotecaForm();
+            bibliotecaForm.Usuario = NombreUsuario;
+            bibliotecaForm.RolUsuario = RolUsuario;
+            bibliotecaForm.Show();
         }
 
         private void logo_Click(object sender, EventArgs e)
@@ -83,8 +161,26 @@ namespace CatalogoJuegos
 
         private void MostrarGestionCatalogo()
         {
-            GestionCatalogo gestionCatalogoForm = new GestionCatalogo();
-            gestionCatalogoForm.Show();
+            // Obtener la instancia de CatalogoControl
+            CatalogoControl catalogoControl = null;
+            foreach (Control control in panelCatalogo.Controls)
+            {
+                if (control is CatalogoControl)
+                {
+                    catalogoControl = (CatalogoControl)control;
+                    break;
+                }
+            }
+
+            if (catalogoControl != null)
+            {
+                GestionCatalogo gestionCatalogoForm = new GestionCatalogo(catalogoControl); // Pasar la referencia
+                gestionCatalogoForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("No se encontró el control de catálogo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Home_Load(object sender, EventArgs e)

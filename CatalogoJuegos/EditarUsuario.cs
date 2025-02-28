@@ -6,9 +6,20 @@ namespace CatalogoJuegos
 {
     public partial class EditarUsuario : Form
     {
+        /// <summary>
+        /// ID del usuario a editar. -1 indica un nuevo usuario.
+        /// </summary>
         private int usuarioId;
+
+        /// <summary>
+        /// Indica si se está creando un nuevo usuario.
+        /// </summary>
         private bool esNuevoUsuario;
 
+        /// <summary>
+        /// Constructor de la clase EditarUsuario.
+        /// </summary>
+        /// <param name="id">ID del usuario a editar. -1 para un nuevo usuario.</param>
         public EditarUsuario(int id = -1)
         {
             InitializeComponent();
@@ -16,24 +27,28 @@ namespace CatalogoJuegos
             esNuevoUsuario = (id == -1);
         }
 
+        /// <summary>
+        /// Maneja el evento Load del formulario.
+        /// Carga los datos del usuario si es una edición, o inicializa para un nuevo usuario.
+        /// </summary>
         private void EditarUsuario_Load(object sender, EventArgs e)
         {
-            // Título del formulario: siempre es "Editar Usuario"
-            this.Text = "Editar Usuario";
+            this.Text = "Editar Usuario"; // Título del formulario
 
-            // Si hay un ID de usuario válido, cargamos sus datos
             if (usuarioId != -1)
             {
                 CargarDatosUsuario(usuarioId);
             }
             else
             {
-                MessageBox.Show("No se ha seleccionado un usuario válido para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close(); // Cerramos la ventana si el ID no es válido
+                //Si es un nuevo usuario, no se cargan datos.
             }
         }
 
-
+        /// <summary>
+        /// Carga los datos del usuario desde la base de datos y los muestra en el formulario.
+        /// </summary>
+        /// <param name="id">ID del usuario a cargar.</param>
         private void CargarDatosUsuario(int id)
         {
             try
@@ -53,15 +68,15 @@ namespace CatalogoJuegos
                             {
                                 txtUsername.Text = reader["username"].ToString();
                                 txtEmail.Text = reader["email"].ToString();
-                                // Si el rol está vacío, asignamos un valor predeterminado (por ejemplo, "Usuario")
+
                                 string rol = reader["rol"].ToString();
                                 if (!string.IsNullOrEmpty(rol))
                                 {
-                                    cboRol.SelectedItem = rol; // Asignar el valor del rol al ComboBox
+                                    cboRol.SelectedItem = rol;
                                 }
                                 else
                                 {
-                                    cboRol.SelectedIndex = -1; // Desmarcar si no se encuentra un valor
+                                    cboRol.SelectedIndex = -1;
                                 }
 
                                 chkBaneado.Checked = Convert.ToBoolean(reader["baneado"]);
@@ -80,6 +95,10 @@ namespace CatalogoJuegos
             }
         }
 
+        /// <summary>
+        /// Maneja el evento de clic del botón Guardar.
+        /// Guarda los datos del usuario en la base de datos.
+        /// </summary>
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
@@ -114,7 +133,6 @@ namespace CatalogoJuegos
 
                     string query;
 
-                    // Si es un nuevo usuario, insertamos; si es un usuario existente, actualizamos
                     if (esNuevoUsuario)
                     {
                         query = "INSERT INTO usuarios (username, email, rol, baneado, password) VALUES (@username, @email, @rol, @baneado, @password)";
@@ -161,6 +179,10 @@ namespace CatalogoJuegos
             }
         }
 
+        /// <summary>
+        /// Maneja el evento de clic del botón Cancelar.
+        /// Cierra el formulario después de confirmar con el usuario.
+        /// </summary>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Estás seguro de que deseas cancelar?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
